@@ -1,17 +1,16 @@
-const navigationItems = [...document.getElementsByClassName('tab')];
-const navContent = [...document.getElementsByClassName('tab__content')];
+const tabs = Array.from(document.querySelectorAll(".tab"));
+const tabContent = Array.from(document.querySelectorAll(".tab__content"));
 
+tabs.forEach((element, index) => {
+  element.addEventListener("click", () => {
+    let lastIndex = tabs.findIndex((e) => e.classList.contains("tab_active"));
 
-for (let i = 0; i < navigationItems.length; i++) {
-    navigationItems[i].addEventListener("click", function() {
+    if (lastIndex !== -1) {
+      tabs[lastIndex].classList.remove("tab_active");
+      tabContent[lastIndex].classList.remove("tab__content_active");
+    }
 
-        if (navigationItems[i].getAttribute("class") != "tab tab_active") {
-            for (let j = 0; j < navigationItems.length; j++) {
-                navigationItems[j].classList.remove("tab_active");
-                navigationItems[i].classList.add("tab_active");
-                navContent[j].classList.remove("tab__content_active");
-                navContent[i].classList.add("tab__content_active");
-            }
-        } 
-    });
-}
+    element.classList.add("tab_active");
+    tabContent[index].classList.add("tab__content_active");
+  });
+});
